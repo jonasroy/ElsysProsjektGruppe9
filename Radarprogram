@@ -34,7 +34,7 @@ uRAD.turnON()
 birdCount = 0
 
 #Henter data fra openweather.org å skriver det ut til skjerm. 
-def get_weatherdata():
+def getWeatherData():
     #Overføring av værdata fra openweather.org
     url = 'http://api.openweathermap.org/data/2.5/weather?q=Trondheim,no&appid=ab285d3403cbfd7b88c9cace599e592d'
     res = requests.get(url)
@@ -68,7 +68,7 @@ def websiteData():
     #doc_ref3.add({u"Bird": 1, u"Cord": [10.404144,63.417402],u"TimeStamp": round(time.clock_gettime(0))})
 
 #GJør at når pien starter opp skriver den til CSV filen når pien begynte å kjøre.
-def getTimePiStartedBoot(filename):
+def startTime(filename):
     f = open(filename, mode = "a") 
     sensor_write = csv.writer(f, delimiter = ",", quotechar='"', quoting=csv.QUOTE_MINIMAL)
     write_to_log = sensor_write.writerow(["\n", "Raspberry pi booted up: ", gettime_print(), gettime()])
@@ -90,7 +90,7 @@ def gettime_print():
 
 
 getTimePiStartedBoot("/home/pi/Library/FugleData")
-get_weatherdata()
+getWeatherData()
 
 # infinite detection loop
 while True:
