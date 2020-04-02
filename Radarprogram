@@ -33,7 +33,8 @@ uRAD.turnON()
 
 birdCount = 0
 
-#Henter data fra openweather.org å skriver det ut til skjerm. 
+
+#Retrieving data from the website openweather.org. 
 def getWeatherData():
     #Overføring av værdata fra openweather.org
     url = 'http://api.openweathermap.org/data/2.5/weather?q=Trondheim,no&appid=ab285d3403cbfd7b88c9cace599e592d'
@@ -50,6 +51,7 @@ def getWeatherData():
     print('Longitude : {}'.format(longitude))
     print('Description : {}'.format(description))
     
+#Transfer the timestamp when function is activated in UNIX time.    
 def websiteData():
 
     #Konfigurasjon av linkt til nettsiden med json fil. 
@@ -80,11 +82,13 @@ def WriteToCSVFile(filename):
     sensor_write = csv.writer(f, delimiter = ",", quotechar='"', quoting=csv.QUOTE_MINIMAL)
     write_to_log = sensor_write.writerow(["Bird detected", "#", birdCount, " ", gettime_print(), gettime()])
 
-#Returner unix tid i sekunder som nettsiden vil ha 
+
+#Return UNIX time in seconds. 
 def gettime():
     return round(time.clock_gettime(0))
 
-#Returner dato og klokkeslett som bruker til skjerm til pien og til å skirve til CSV filen. 
+
+#Return date og time and write to screen in the pi. 
 def gettime_print():
     return datetime.now()
 
@@ -97,12 +101,11 @@ while True:
     # target detecton request
     uRAD.detection(0, 0, 0, 0, 0, movement)
     
-    # print the results
     if (movement[0] == True):
         print("Bird detected.","#", birdCount," ", gettime_print())
         birdCount += 1
         WriteToCSVFile("/home/pi/Library/FugleData")
+        websiteData()
         
         
-#Kommenter ut doc_ref.add, doc_ref2.add, eller doc.ref3.add for å besteme hvilken node i nettsiden pien skal sende til. 
 
