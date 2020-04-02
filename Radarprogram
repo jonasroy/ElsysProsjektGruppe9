@@ -10,8 +10,8 @@ from datetime import datetime
 
 
 
-# Hvis man skal endre på parameteren til radaren gjør man det her!!!!!!!!!!!!
-mode = 1	# Waveform mode set to mode = 1, continous wave (CW). 
+#Parameter changes for the radar
+mode = 1	# Waveform mode set to 1, continous wave (CW). 
 f0 = 5		# Operation mode set from 24.005 to 24.245 GHz.
 BW = 240	# Operation bandwidth in the other ramp modes. 
 Ns = 200	# Number of samples. Range value 38 to 21 samples/sec [50 to 200].
