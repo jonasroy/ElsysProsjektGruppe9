@@ -94,18 +94,25 @@ def gettime_print():
 
 
 getTimePiStartedBoot("/home/pi/Library/FugleData")
-getWeatherData()
+
+
+
 
 # infinite detection loop
 while True:
     # target detecton request
     uRAD.detection(0, 0, 0, 0, 0, movement)
-    
+    time_count = time.perf_counter()
+    if(time_count > 100):
+        getWeatherData()
+        time_count = 0
+        
     if (movement[0] == True):
         print("Bird detected.","#", birdCount," ", gettime_print())
         birdCount += 1
         WriteToCSVFile("/home/pi/Library/FugleData")
         websiteData()
+    
         
         
 
