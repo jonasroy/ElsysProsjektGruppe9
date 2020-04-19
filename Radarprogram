@@ -50,7 +50,14 @@ def getWeatherData():
     print('Latitude : {}'.format(latitude))
     print('Longitude : {}'.format(longitude))
     print('Description : {}'.format(description))
+    #Return weather data in a matrix. 
+    return [float('{}'.format(temp)),float('{}'.format(wind_speed)),float('{}'.format(latitude)),
+    float('{}'.format(longitude)),'{}'.format(description)]
     
+def getWeatherData():
+    
+    
+   
 #Transfer the timestamp when function is activated in UNIX time.    
 def websiteData():
 
