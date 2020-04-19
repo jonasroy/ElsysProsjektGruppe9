@@ -94,7 +94,7 @@ def gettime_print():
 
 
 getTimePiStartedBoot("/home/pi/Library/FugleData")
-
+getWeatherData()
 
 
 
@@ -103,7 +103,7 @@ while True:
     # target detecton request
     uRAD.detection(0, 0, 0, 0, 0, movement)
     time_count = time.perf_counter()
-    if(time_count > 100):
+    if(time_count > 60):
         getWeatherData()
         time_count = 0
         
