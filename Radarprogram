@@ -105,7 +105,7 @@ def backup_data(float time):
     write_to_log = sensor_write.writerow([time])
     
 #Reads the content from a file and returns every line in a matrix. 
-def readtoFile(file):
+def readFromFile(file):
     a = []
     with open(file) as f:
             for line in f.readlines():
@@ -114,7 +114,7 @@ def readtoFile(file):
 
 getTimePiStartedBoot("/home/pi/Library/FugleData")
 getWeatherData()
-backup_list = []
+
 
 
 # infinite detection loop
@@ -132,12 +132,12 @@ while True:
         birdCount += 1
         WriteToCSVFile("/home/pi/Library/FugleData")
         try: 
-            
             websiteData(detection_time)
+            backup_list = readFromFile("/home/pi/Library/FugleData_backup")
             #Sends the detection times when the Raspberry Pi lost connection to WiFi.
             if(len(detection_time) > 0): 
-                for i in range()):
-                    websiteData(detection_time)
+                for i in range(0,len(backup_list)-1):
+                    websiteData(float(backuplist[i]))
         except: 
             backup_data(detection_time)
             
