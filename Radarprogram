@@ -18,7 +18,7 @@ Ns = 200	# Number of samples. Range value 38 to 21 samples/sec [50 to 200].
 Ntar = 5	# Maximum number of targets to detect from 1 to 5. 
 Rmax = 60	# Maximum distance the targets will be searched from 0 to 75. 
 MTI = 1		# Moving targets Indication, when activated alll static objects are ignored. 
-Mth = 3	    # Defines the sensitivity of the radar. From 1(low) to 4(high).
+Mth = 3	        # Defines the sensitivity of the radar. From 1(low) to 4(high).
 
 # results output array
 movement = [0]
@@ -29,10 +29,7 @@ uRAD.loadConfiguration(mode, f0, BW, Ns, Ntar, Rmax, MTI, Mth)
 # switch ON uRAD
 uRAD.turnON()
 
-
-
 birdCount = 0
-
 
 #Retrieving data from the website openweather.org. 
 def getWeatherData():
@@ -81,7 +78,7 @@ def startTime(filename):
     write_to_log = sensor_write.writerow(["\n", "Raspberry pi booted up: ", gettime_print(), gettime()])
 
 #Skriver til CSVfilen. 
-def WriteToCSVFile(filename):    
+def writeToFile(filename):    
     #the a is for append
     f = open(filename, mode = "a") 
     sensor_write = csv.writer(f, delimiter = ",", quotechar='"', quoting=csv.QUOTE_MINIMAL)
@@ -112,10 +109,15 @@ def readFromFile(file):
                 a.append(line)
     return a
 
+#Delete the content from file. 
+def delFile(filename): 
+        file = open(filename,"r+")
+        file.truncate(0)
+        file.close()
+
+
 getTimePiStartedBoot("/home/pi/Library/FugleData")
 getWeatherData()
-
-
 
 # infinite detection loop
 while True:
@@ -130,14 +132,15 @@ while True:
         detection_time = gettime()
         print("Bird detected.","#", birdCount," ", gettime_print())
         birdCount += 1
-        WriteToCSVFile("/home/pi/Library/FugleData")
+        writeToFile("/home/pi/Library/FugleData")
         try: 
             websiteData(detection_time)
             backup_list = readFromFile("/home/pi/Library/FugleData_backup")
             #Sends the detection times when the Raspberry Pi lost connection to WiFi.
-            if(len(detection_time) > 0): 
+            if(len(backup_list) > 0): 
                 for i in range(0,len(backup_list)-1):
                     websiteData(float(backuplist[i]))
+                delFile("/home/pi/Library/FugleData_backup")
         except: 
             backup_data(detection_time)
             
