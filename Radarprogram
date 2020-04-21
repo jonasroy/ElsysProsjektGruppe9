@@ -54,10 +54,8 @@ def getWeatherData():
     return [float('{}'.format(temp)),float('{}'.format(wind_speed)),float('{}'.format(latitude)),
     float('{}'.format(longitude)),'{}'.format(description)]
     
-def getWeatherData():
+def getWeatherData(time):
     
-    
-   
 #Transfer the timestamp when function is activated in UNIX time.    
 def websiteData():
 
@@ -72,7 +70,7 @@ def websiteData():
     doc_ref2 = store.collection(u'Unit').document(u"Node2" ).collection(u"Activity")
     doc_ref3 = store.collection(u'Unit').document(u"Node3" ).collection(u"Activity")
     
-    #doc_ref.add({u"Bird": 1, u"Cord": [10.39621,63.426905],u"TimeStamp": round(time.clock_gettime(0))-(15*24*60*60)})
+    doc_ref.add({u"Bird": 1, u"Cord": [10.39621,63.426905],u"TimeStamp": round(time)})
     #doc_ref2.add({u"Bird": 1, u"Cord": [10.413224,63.426838], u"TimeStamp": round(time.clock_gettime(0))})
     #doc_ref3.add({u"Bird": 1, u"Cord": [10.404144,63.417402],u"TimeStamp": round(time.clock_gettime(0))})
 
@@ -98,11 +96,25 @@ def gettime():
 #Return date og time and write to screen in the pi. 
 def gettime_print():
     return datetime.now()
-
+    
+#Stores the detection times if the Raspberry Pi loses connection to WiFi. 
+def backup_data(float time):
+    filename = "/home/pi/Library/FugleData_backup"
+    f = open(filename, mode = "a") 
+    sensor_write = csv.writer(f, delimiter = ",", quotechar='"', quoting=csv.QUOTE_MINIMAL)
+    write_to_log = sensor_write.writerow([time])
+    
+#Reads the content from a file and returns every line in a matrix. 
+def readtoFile(file):
+    a = []
+    with open(file) as f:
+            for line in f.readlines():
+                a.append(line)
+    return a
 
 getTimePiStartedBoot("/home/pi/Library/FugleData")
 getWeatherData()
-
+backup_list = []
 
 
 # infinite detection loop
@@ -115,11 +127,19 @@ while True:
         time_count = 0
         
     if (movement[0] == True):
+        detection_time = gettime()
         print("Bird detected.","#", birdCount," ", gettime_print())
         birdCount += 1
         WriteToCSVFile("/home/pi/Library/FugleData")
-        websiteData()
-    
-        
+        try: 
+            
+            websiteData(detection_time)
+            #Sends the detection times when the Raspberry Pi lost connection to WiFi.
+            if(len(detection_time) > 0): 
+                for i in range()):
+                    websiteData(detection_time)
+        except: 
+            backup_data(detection_time)
+            
         
 
