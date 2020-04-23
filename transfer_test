@@ -13,6 +13,9 @@ def transfer_test(int nr_node, int n, float lat, float lon):
     
     for i in range(n):
         doc_ref.add({u"Bird": 1, u"Cord": [lon,lat],u"TimeStamp": round(gettime(0))})
-        
+ 
+ #Test with the coordinates of the Nidaros Cathedral.
  transfer_test( 2, 200, 63.426905, 10.39621)
+ 
+ #Test with the coordiantes of Gløshaugen. 
  transfer_test( 3, 70, 63.417402, 10.404144)
