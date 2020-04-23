@@ -109,7 +109,7 @@ def readFromFile(file):
                 a.append(line)
     return a
 
-#Delete the content from file. 
+#Erase the content from a file. 
 def delFile(filename): 
         file = open(filename,"r+")
         file.truncate(0)
