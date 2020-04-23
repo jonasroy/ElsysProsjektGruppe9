@@ -71,7 +71,8 @@ def websiteData():
     #doc_ref2.add({u"Bird": 1, u"Cord": [10.413224,63.426838], u"TimeStamp": round(time.clock_gettime(0))})
     #doc_ref3.add({u"Bird": 1, u"Cord": [10.404144,63.417402],u"TimeStamp": round(time.clock_gettime(0))})
 
-#GJør at når pien starter opp skriver den til CSV filen når pien begynte å kjøre.
+
+#The function write to the next line in a specified CSV file when the Raspberry Pi booted up.
 def startTime(filename):
     f = open(filename, mode = "a") 
     sensor_write = csv.writer(f, delimiter = ",", quotechar='"', quoting=csv.QUOTE_MINIMAL)
