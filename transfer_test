@@ -4,6 +4,14 @@
 #lat - latitude in coordiantes. 
 #lon - longitude in coordinates. 
 
+import firebase_admin #imort firebase library 
+from firebase_admin import credentials
+from firebase_admin import firestore
+import time #import the time library
+
+
+
+
 def transfer_test(int nr_node, int n, float lat, float lon):
     node = "Node" + str(nr_node)
     cred = credentials.Certificate("/home/pi/Library/FirestoreKey.json")
