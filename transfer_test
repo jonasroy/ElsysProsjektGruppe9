@@ -1,8 +1,4 @@
-#The function sends n number of simulated bird detection with specified node on the website and coordinates. 
-#nr_node - Node number. 
-#n - how many test detection in a row to the website. 
-#lat - latitude in coordiantes. 
-#lon - longitude in coordinates. 
+
 
 import firebase_admin #imort firebase library 
 from firebase_admin import credentials
@@ -10,7 +6,16 @@ from firebase_admin import firestore
 import time #import the time library
 
 
+#Return UNIX time in seconds. 
+def gettime():
+    return round(time.clock_gettime(0))
 
+
+#The function sends n number of simulated bird detection with specified node on the website and coordinates. 
+#nr_node - Node number. 
+#n - how many test detection in a row to the website. 
+#lat - latitude in coordiantes. 
+#lon - longitude in coordinates. 
 
 def transfer_test(int nr_node, int n, float lat, float lon):
     node = "Node" + str(nr_node)
@@ -20,7 +25,7 @@ def transfer_test(int nr_node, int n, float lat, float lon):
     doc_ref = store.collection(u'Unit').document(u+node ).collection(u"Activity")
     
     for i in range(n):
-        doc_ref.add({u"Bird": 1, u"Cord": [lon,lat],u"TimeStamp": round(gettime(0))})
+        doc_ref.add({u"Bird": 1, u"Cord": [lon,lat],u"TimeStamp": round(gettime())})
  
  #Test with the coordinates of the Nidaros Cathedral.
  transfer_test( 2, 200, 63.426905, 10.39621)
