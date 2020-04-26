@@ -1,6 +1,5 @@
 
-
-import firebase_admin #imort firebase library 
+import firebase_admin #import firebase library 
 from firebase_admin import credentials
 from firebase_admin import firestore
 import time #import the time library
