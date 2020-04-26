@@ -42,6 +42,7 @@ def getWeatherData():
     latitude = data['coord']['lat']
     longitude = data['coord']['lon']
     description = data['weather'][0]['description']
+    #Prints the weather on the screen. 
     print('Temperature : {} degree celcius'.format(temp))
     print('Wind Speed : {} m/s'.format(wind_speed))
     print('Latitude : {}'.format(latitude))
