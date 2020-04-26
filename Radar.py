@@ -91,7 +91,8 @@ def gettime():
     return round(time.clock_gettime(0))
 
 
-#Return date og time and write to screen in the pi. 
+#Return date og time and write to screen in the pi.
+#Returns date and time to show 
 def gettime_print():
     return datetime.now()
     
